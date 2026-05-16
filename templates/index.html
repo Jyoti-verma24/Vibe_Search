@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>VibeSearch AI</title>
+    <style>
+        body { font-family: sans-serif; background: #121212; color: white; text-align: center; }
+        .result { background: #1e1e1e; margin: 20px auto; padding: 20px; width: 80%; border-radius: 10px; }
+        .lyrics-box { white-space: pre-wrap; text-align: left; background: #282828; padding: 15px; border-radius: 5px; max-height: 300px; overflow-y: auto; }
+        input { padding: 10px; width: 300px; border-radius: 5px; }
+    </style>
+    <style>
+    #loader { display: none; margin: 20px auto; border: 6px solid #f3f3f3; border-top: 6px solid #3498db; border-radius: 50%; width: 40px; height: 40px; animation: spin 2s linear infinite; }
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+</style>
+</head>
+<body>
+    <h1>🎵 VibeSearch: AI Lyric Finder</h1>
+    <form action="/search" method="post" onsubmit="showLoader()">
+    <input type="text" name="vibe_query" placeholder="Describe a vibe..." required>
+    <button type="submit" id="searchBtn">Search</button>
+</form>
+<div id="loader"></div>
+<p id="loadingText" style="display:none;">AI is analyzing the vibe and fetching lyrics...</p>
+    {% if vibe %}
+    <div class="result">
+        <h2>Top Match for: "{{ query }}"</h2>
+        <p><i>AI Perception: {{ vibe }}</i></p>
+        
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/{{ yt_id }}" frameborder="0"></iframe>
+        
+        <h3>📜 Exact Lyrics</h3>
+        <div class="lyrics-box">{{ lyrics }}</div>
+    </div>
+    {% endif %}
+</body>
+<script>
+function showLoader() {
+    document.getElementById("loader").style.display = "block";
+    document.getElementById("loadingText").style.display = "block";
+    document.getElementById("searchBtn").disabled = true;
+}
+</script>
+</html>
